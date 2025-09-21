@@ -24,7 +24,7 @@ export default function Home() {
       <main className='px-5 pb-24' >
         <section id='home' className="">
           <nav className='p-10 mb-12 flex justify-between' >
-            <h1 className='italic text-2xl font-medium' >Wellcome</h1>
+            <h1 className='italic text-2xl font-medium' >Welcome</h1>
             <ul className='flex items-center' >
               <li className=''>
                 <BsFillMoonStarsFill className=''/>
