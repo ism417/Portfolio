@@ -132,16 +132,22 @@ export default function Home() {
           </div>
           <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 py-10'>
             <div className='flex flex-col items-center gap-2 '>
-              <h3>E-commerce Website</h3>
-              <img src="/e-comerce.jpeg" alt="E-commerce Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              <h3>Spinning wheel</h3>
+              <a href='https://spinning-wheel-free.vercel.app/'>
+                <img src="/spinning.png" alt="E-commerce Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              </a>
             </div>
             <div className='flex flex-col items-center gap-2'>
-              <h3>Portfolio Website</h3>
-              <img src="portfolio.png" alt="Portfolio Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              <h3>Ping Pong game</h3>
+              <a href='https://ping-pong-free.vercel.app/'>
+                <img src="pingpong.png" alt="Portfolio Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              </a>
             </div>
             <div className='flex flex-col items-center gap-2'>
-              <h3>Blog Platform</h3>
-              <img src="blog.png" alt="Blog Platform" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              <h3>Todo list manager</h3>
+              <a href='https://my-todo-io-app.vercel.app/'>
+                <img src="todoapp.png" alt="Blog Platform" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+              </a>
             </div>
           </div>
         </section>
@@ -218,7 +224,7 @@ export default function Home() {
                   className='p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-400 resize-none'
                 ></textarea>
                 <button 
-                  className='bg-gradient-to-r from-teal-400 to-teal-600 text-white py-3 px-6 rounded-lg hover:scale-105 transition-all duration-300 text-lg font-medium'
+                  className='bg-linear-to-r from-teal-400 to-teal-600 text-white py-3 px-6 rounded-lg hover:scale-105 transition-all duration-300 text-lg font-medium'
                 >
                   Send Message
                 </button>
