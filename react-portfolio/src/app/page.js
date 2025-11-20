@@ -1,3 +1,5 @@
+'use client'
+
 import {BsFillMoonStarsFill} from 'react-icons/bs'
 import {AiFillGithub, AiFillLinkedin, AiFillTwitterCircle} from 'react-icons/ai'
 import { FaDocker } from "react-icons/fa";
@@ -10,15 +12,58 @@ import { IoLogoJavascript } from "react-icons/io5";
 import { FaReact } from "react-icons/fa";
 import { RiNextjsFill } from "react-icons/ri";
 import { RiTailwindCssFill } from "react-icons/ri";
-import { FaPhp } from "react-icons/fa";
+import { FaPython } from "react-icons/fa";
 import { SiPostgresql } from "react-icons/si";
 import { IoMdHome } from "react-icons/io";
 import { LiaProjectDiagramSolid } from "react-icons/lia";
 import { PiCompassToolFill } from "react-icons/pi";
+import { Inter, Space_Grotesk } from 'next/font/google'
+import { useState } from 'react'
+import { IoChevronBack, IoChevronForward } from 'react-icons/io5'
 
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+})
 
+const spaceGrotesk = Space_Grotesk({ 
+  subsets: ['latin'],
+  variable: '--font-space-grotesk',
+  weight: ['400', '500', '600', '700']
+})
 
 export default function Home() {
+  const [currentProject, setCurrentProject] = useState(0);
+
+  const projects = [
+    {
+      title: 'Ping Pong game',
+      url: 'https://ping-pong-free.vercel.app/',
+      image: '/pingpong.png',
+      alt: 'Ping Pong Game'
+    },
+    {
+      title: 'Spinning wheel',
+      url: 'https://spinning-wheel-free.vercel.app/',
+      image: '/spinning.png',
+      alt: 'Spinning Wheel'
+    },
+    {
+      title: 'Todo list manager',
+      url: 'https://my-todo-io-app.vercel.app/',
+      image: '/todoapp.png',
+      alt: 'Todo List Manager'
+    }
+  ];
+
+  const nextProject = () => {
+    setCurrentProject((prev) => (prev + 1) % projects.length);
+  };
+
+  const prevProject = () => {
+    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
   return (
     <div className='bg-gradient-to-br from-teal-900 to-gray-800' >
       <main className='px-5 pb-24' >
@@ -26,12 +71,10 @@ export default function Home() {
           <nav className='p-10 mb-12 flex justify-between' >
             <h1 className='italic text-2xl font-medium' >Welcome</h1>
             <ul className='flex items-center' >
-              <li className=''>
-                <BsFillMoonStarsFill className=''/>
-              </li>
               <li>
                 <a className='bg-gradient-to-br from-teal-400 to-gray-800 text-white px-4 py-2 rounded-md ml-8' 
-                  href="#" >
+                  href="/eismail-cv.pdf"
+                  download="eismail-cv.pdf" >
                   Resume
                 </a>
               </li>
@@ -55,30 +98,30 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='pt-40 min-h-screen' >
-          <div className='bg-gradient-to-br to-gray-800  flex justify-center  fixed bottom-0 pb-5 left-0 right-0 px-20 flex-row gap-10' >
-            <a href="#home" className='flex flex-col items-center text-teal  hover:scale-150 transition-all duration-500'>
-              <IoMdHome className='size-10 lg:size-15' />
-              <h1>Home</h1>
-            </a>
-            <a href="#skills" className='flex flex-col items-center text-teal  hover:scale-150 transition-all duration-500'>
-              <PiCompassToolFill className='size-10 lg:size-15' />
-              <h1>Skills</h1>
-            </a>
-            <a href="#projects" className='flex flex-col items-center text-teal hover:scale-150 transition-all duration-500'>
-              <LiaProjectDiagramSolid className='size-10 lg:size-15' />
-              <h1>Projects</h1>
-            </a>
-            <a href="#education"className='flex flex-col items-center text-teal  hover:scale-150 transition-all duration-500'>
-              <IoSchoolSharp className='size-10 lg:size-15' />
-              <h1>Education</h1>
-            </a>
-            <a href="#contacts" className='flex flex-col items-center text-teal  hover:scale-150 transition-all duration-500'>
-              <FaTelegramPlane className='size-10 lg:size-15' />
-              <h1>Contacts</h1>
-            </a>
-          </div>
-        </section>
+       <section className='pt-40 min-h-screen' >
+        <div className='bg-gradient-to-br to-gray-800 flex justify-center fixed bottom-0 pb-2 left-0 right-0 px-10 flex-row gap-6' >
+          <a href="#home" className='flex flex-col items-center text-teal hover:scale-125 transition-all duration-500'>
+            <IoMdHome className='size-6' />
+            <h1 className='text-xs'>Home</h1>
+          </a>
+          <a href="#skills" className='flex flex-col items-center text-teal hover:scale-125 transition-all duration-500'>
+            <PiCompassToolFill className='size-6' />
+            <h1 className='text-xs'>Skills</h1>
+          </a>
+          <a href="#projects" className='flex flex-col items-center text-teal hover:scale-125 transition-all duration-500'>
+            <LiaProjectDiagramSolid className='size-6' />
+            <h1 className='text-xs'>Projects</h1>
+          </a>
+          <a href="#education"className='flex flex-col items-center text-teal hover:scale-125 transition-all duration-500'>
+            <IoSchoolSharp className='size-6' />
+            <h1 className='text-xs'>Education</h1>
+          </a>
+          <a href="#contacts" className='flex flex-col items-center text-teal hover:scale-125 transition-all duration-500'>
+            <FaTelegramPlane className='size-6' />
+            <h1 className='text-xs'>Contacts</h1>
+          </a>
+        </div>
+      </section>
         <section id='skills' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
           <div>
             <h1 className='text-5xl text-teal-400'>Skills</h1>
@@ -117,8 +160,8 @@ export default function Home() {
               <RiTailwindCssFill size={40} />
             </div>
             <div className='flex flex-col items-center gap-1'>
-              <h1>PHP</h1>
-              <FaPhp size={40} />
+              <h1>Python</h1>
+              <FaPython size={40} />
             </div>
             <div className='flex flex-col items-center gap-1'>
               <h1>SQL</h1>
@@ -126,29 +169,49 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section id='projects' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
+        <section id='projects' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20 overflow-x-hidden'>
           <div>
             <h1 className='text-5xl text-teal-400'>Projects</h1>
           </div>
-          <div className='grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-10 py-10'>
-            <div className='flex flex-col items-center gap-2 '>
-              <h3>Spinning wheel</h3>
-              <a href='https://spinning-wheel-free.vercel.app/'>
-                <img src="/spinning.png" alt="E-commerce Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
+          <div className='flex items-center justify-center w-full max-w-4xl px-16'>
+            <button 
+              onClick={prevProject}
+              className='absolute left-1/9 z-10 p-3 bg-teal-600 rounded-full hover:bg-teal-400 transition-all duration-300 hover:scale-110'
+              aria-label='Previous project'
+            >
+              <IoChevronBack size={30} className='text-white' />
+            </button>
+            
+            <div className='flex flex-col items-center gap-4 py-10'>
+              <h2 className='font-semibold' >{projects[currentProject].title}</h2>
+              <a href={projects[currentProject].url} target='_blank' rel='noopener noreferrer'>
+                <img 
+                  src={projects[currentProject].image} 
+                  alt={projects[currentProject].alt} 
+                  className='lg:scale-200 sm:150 rounded-lg shadow-lg lg:hover:scale-250 sm:hover:scale-150 transition-all duration-500 max-w-md w-full' 
+                />
               </a>
+              <div className='flex gap-2 mt-4'>
+                {projects.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentProject(index)}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      index === currentProject ? 'bg-teal-600 w-8' : 'bg-gray-400'
+                    }`}
+                    aria-label={`Go to project ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
-            <div className='flex flex-col items-center gap-2'>
-              <h3>Ping Pong game</h3>
-              <a href='https://ping-pong-free.vercel.app/'>
-                <img src="pingpong.png" alt="Portfolio Website" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
-              </a>
-            </div>
-            <div className='flex flex-col items-center gap-2'>
-              <h3>Todo list manager</h3>
-              <a href='https://my-todo-io-app.vercel.app/'>
-                <img src="todoapp.png" alt="Blog Platform" className='rounded-lg shadow-lg hover:scale-105 hover:translate-x-0 transition-all duration-500' />
-              </a>
-            </div>
+
+            <button 
+              onClick={nextProject}
+              className='absolute right-1/9 z-10 p-3 bg-teal-600 rounded-full hover:bg-teal-400 transition-all duration-300 hover:scale-110'
+              aria-label='Next project'
+            >
+              <IoChevronForward size={30} className='text-white' />
+            </button>
           </div>
         </section>
         <section id='education' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
