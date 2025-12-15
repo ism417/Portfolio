@@ -36,7 +36,6 @@ const spaceGrotesk = Space_Grotesk({
 })
 
 export default function Home() {
-  const [currentProject, setCurrentProject] = useState(0);
 
   const projects = [
     {
@@ -56,13 +55,6 @@ export default function Home() {
     }
   ];
 
-  const nextProject = () => {
-    setCurrentProject((prev) => (prev + 1) % projects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
-  };
    const links = [
     {
       title: "Home",
@@ -200,7 +192,7 @@ export default function Home() {
               }}
               className="relative  gap-4  px-4"
             >
-              <div className="max-w-5xl mx-auto px-8">
+              <div className=" mx-auto px-8">
                 <HoverEffect items={projects} />
               </div>
           </motion.div>
