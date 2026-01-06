@@ -49,6 +49,11 @@ export default function Home() {
       image: '/spinning.png',
     },
     {
+      title: 'Chatbot',
+      link: 'https://raglet.live',
+      image: '/chatbot.png',
+    },
+    {
       title: 'Todo list manager',
       link: 'https://my-todo-io-app.vercel.app/',
       image: '/todoapp.png',
@@ -113,7 +118,7 @@ export default function Home() {
             <h1 className='italic text-2xl font-medium text-purple-600' >Ismail El Abbassi</h1>
             <ul className='flex items-center' >
               <li>
-                <a className='bg-gradient-to-br from-purple-600 to-gray-800 hover:to-purple-900 transition duration-700 ease-in-out text-white px-4 py-2 rounded-md ml-8' 
+                <a className='bg-linear-to-br from-purple-600 to-gray-800 hover:to-purple-900 transition duration-700 ease-in-out text-white px-4 py-2 rounded-md ml-8' 
                   href="/eismail-cv.pdf"
                   download="eismail-cv.pdf" >
                   Resume
@@ -134,7 +139,7 @@ export default function Home() {
             >
             <h3 className='text-2xl py-2 text-white '>Developer and computer science graduate</h3>
             <p className='text-md py-5 leading-8 text-gray-300 max-w-200' >
-              I'm a versatile software developer with experience across systems programming, web applications. Proficient in languages like C, C++, PHP, SQL, and Javascript, I've tackled complex projects across multiple fields. 
+              I'm a versatile software developer with experience across systems programming, web applications. Proficient in languages like C, C++, Python, SQL, and Javascript, I've tackled complex projects across multiple fields. 
               I thrive on solving challenging problems, collaborating in diverse teams, and continuously expanding my technical expertise.
               I have developed robust skills in software development, problem-solving, and collaborative projects. With a solid foundation in coding and software architecture
               I am passionate about blending technical expertise with creative vision, Eager to be innovative, efficient, impactful.
@@ -151,7 +156,7 @@ export default function Home() {
           </div>
         </section>
        <section className='pt-40 min-h-screen' >
-        <div className='z-50 bg-gradient-to-br to-gray-800 flex justify-center fixed bottom-0 pb-2 left-0 right-0 px-10 flex-row gap-6' >
+        <div className='z-50 bg-linear-to-br to-gray-800 flex justify-center fixed bottom-0 pb-2 left-0 right-0 px-10 flex-row gap-6' >
             <FloatingDock
               items={links}
             />
