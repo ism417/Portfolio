@@ -24,10 +24,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${newsreader.variable} ${jetbrainsMono.variable} antialiased`}>
-        {children}
-      </body>
+    <html lang="en" className={`${newsreader.variable} ${jetbrainsMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

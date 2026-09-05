@@ -1,0 +1,47 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 18px var(--gutter);
+  background: rgba(18, 18, 18, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.wordmark {
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(14px, 2vw, 26px);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.link,
+.linkPrimary {
+  text-decoration: none;
+}
+
+.link {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.linkPrimary {
+  color: var(--text);
+}

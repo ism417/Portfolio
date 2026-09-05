@@ -1,0 +1,38 @@
+.section {
+  padding: 26px var(--gutter);
+}
+
+.strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.beacon {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.label {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.text {
+  flex: 1;
+  min-width: 240px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beacon {
+    animation: none;
+  }
+}

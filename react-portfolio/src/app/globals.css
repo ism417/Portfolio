@@ -1,7 +1,22 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+:root {
+  --bg: #121212;
+  --surface: #1c1c1c;
+  --text: #f4f4f4;
+  --text-soft: #dcdcdc;
+  --text-muted: #b4b4b4;
+  --text-faint: rgba(255, 255, 255, 0.6);
+  --text-dim: rgba(255, 255, 255, 0.55);
+  --rule: rgba(255, 255, 255, 0.12);
+
+  --serif: var(--font-newsreader), Georgia, serif;
+  --mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --gutter: clamp(20px, 5vw, 72px);
+  --section-y: clamp(48px, 7vw, 76px);
+  --measure: 1240px;
+}
 
 html {
   scroll-behavior: smooth;
@@ -9,19 +24,19 @@ html {
 
 body {
   margin: 0;
-  background: #121212;
-  color: #f4f4f4;
-  font-family: var(--font-newsreader), Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
 }
 
 a {
-  color: #dcdcdc;
+  color: var(--text-soft);
 }
 
 ::selection {
-  background: #f4f4f4;
-  color: #121212;
+  background: var(--text);
+  color: var(--bg);
 }
 
 @keyframes drift1 {
@@ -41,30 +56,5 @@ a {
 
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: .35; transform: scale(.8); }
-}
-
-@media (pointer: coarse) {
-  [data-cursor-layer] {
-    display: none;
-  }
-}
-
-
-
-
-@theme inline {
-  --animate-aurora: aurora 60s linear infinite;
-  @keyframes aurora {
-    from {
-      background-position:
-        50% 50%,
-        50% 50%;
-    }
-    to {
-      background-position:
-        350% 50%,
-        350% 50%;
-    }
-  }
+  50% { opacity: 0.35; transform: scale(0.8); }
 }

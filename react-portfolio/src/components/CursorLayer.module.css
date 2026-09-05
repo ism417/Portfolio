@@ -1,0 +1,83 @@
+.layer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.ring,
+.dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: width 0.28s ease, height 0.28s ease, margin 0.28s ease, background 0.28s ease;
+}
+
+.ring[data-wide='true'] {
+  width: 68px;
+  height: 68px;
+  margin: -34px 0 0 -34px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--text);
+}
+
+.layer[data-active='true'] .ring,
+.layer[data-active='true'] .dot {
+  opacity: 1;
+}
+
+.preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 260px;
+  margin: -130px 0 0 -170px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preview[data-visible='true'] {
+  opacity: 1;
+}
+
+.previewImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.previewImage[data-visible='true'] {
+  opacity: 1;
+}
+
+@media (pointer: coarse) {
+  .layer {
+    display: none;
+  }
+}
