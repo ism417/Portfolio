@@ -1,305 +1,281 @@
 'use client'
 
-import {AiFillGithub, AiFillLinkedin, AiFillTwitterCircle} from 'react-icons/ai'
-import { FaDocker } from "react-icons/fa";
-import { FaGitAlt } from "react-icons/fa";
-import { IoSchoolSharp } from "react-icons/io5";
-import { FaTelegramPlane } from "react-icons/fa";
-import { TbBrandCpp } from "react-icons/tb";
-import { FaC } from "react-icons/fa6";
-import { IoLogoJavascript } from "react-icons/io5";
-import { FaReact } from "react-icons/fa";
-import { RiNextjsFill } from "react-icons/ri";
-import { RiTailwindCssFill } from "react-icons/ri";
-import { FaPython } from "react-icons/fa";
-import { SiPostgresql } from "react-icons/si";
-import { IoMdHome } from "react-icons/io";
-import { LiaProjectDiagramSolid } from "react-icons/lia";
-import { PiCompassToolFill } from "react-icons/pi";
-import { Inter, Space_Grotesk } from 'next/font/google'
-import { useState } from 'react'
-import { FloatingDock } from '@/components/ui/floating-dock';
-import { AuroraBackground } from '@/components/ui/aurora-background';
-import { motion } from "motion/react";
-import { HoverEffect } from '@/components/ui/card-hover-effect';
-import GlassIcons from '@/components/GlassIcons';
+import { useEffect, useRef } from 'react';
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
+const MONO = "var(--font-jetbrains-mono), ui-monospace, monospace";
 
-const spaceGrotesk = Space_Grotesk({ 
-  subsets: ['latin'],
-  variable: '--font-space-grotesk',
-  weight: ['400', '500', '600', '700']
-})
+const PROJECTS = [
+  { num: "01", year: "2026", live: true, title: "Chatbot / RAG", category: "AI · Retrieval", hoverLine: "Answers grounded in your own documents", link: "https://raglet.live", image: "/chatbot.png" },
+  { num: "02", year: "2025", live: true, title: "Todo list manager", category: "Web app", hoverLine: "Small state model, keyboard first", link: "https://my-todo-io-app.vercel.app/", image: "/todoapp.png" },
+  { num: "03", year: "2025", live: true, title: "Ping Pong", category: "Game · Canvas", hoverLine: "Fixed timestep loop, real collision", link: "https://ping-pong-free.vercel.app/", image: "/pingpong.png" },
+  { num: "04", year: "2024", live: true, title: "Spinning wheel", category: "Interaction study", hoverLine: "Weighted outcomes, eased deceleration", link: "https://spinning-wheel-free.vercel.app/", image: "/spinning.png" },
+];
+
+const STACK = ["C", "C++", "Python", "JavaScript", "TypeScript", "SQL / Postgres", "React", "Next.js", "Tailwind", "Docker", "Git", "Linux"];
+
+const TIMELINE = [
+  { years: "2025 — now", title: "Freelance fullstack developer", body: "Currently building raglet.live and taking scoped client work." },
+  { years: "2024 — 2025", title: "Internship / first engineering role", body: "Placeholder entry — replace with the company, the stack, and one measurable outcome." },
+  { years: "2023 — 2025", title: "1337 School", body: "Peer-to-peer, project-based computer science. Systems programming in C and C++, graphics, networking, and a lot of debugging other people's code." },
+  { years: "2018 — 2022", title: "University Diploma, Ibn Zohr", body: "Mathematics and computer science at the Faculty of Science, Ouarzazate. Data structures, algorithms, databases, computer architecture and software engineering." },
+];
+
+function WorkRow({ p, rowRef }) {
+  return (
+    <a
+      ref={rowRef}
+      href={p.link}
+      target="_blank"
+      rel="noreferrer"
+      className="work-row"
+      data-rv=""
+      style={{
+        opacity: 0, transform: 'translateY(18px)', transition: 'opacity .55s ease, transform .8s ease',
+        position: 'relative', display: 'flex', alignItems: 'center', gap: 'clamp(14px,2.4vw,32px)',
+        padding: 'clamp(18px,2.4vw,26px) 0', borderTop: '1px solid rgba(255,255,255,.12)',
+        textDecoration: 'none', color: 'inherit',
+      }}
+    >
+      <span className="hairline" style={{ position: 'absolute', left: 0, right: 0, top: 0, height: 1, background: '#f4f4f4', transform: 'scaleX(0)', transformOrigin: 'left', transition: 'transform .7s cubic-bezier(.16,1,.3,1)' }} />
+      <span style={{ width: 40, flex: 'none', fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,.55)' }}>{p.num}</span>
+      <span style={{ position: 'relative', flex: 1, minWidth: 0, height: 'clamp(38px,5.6vw,58px)', overflow: 'hidden' }}>
+        <span className="swap-a" style={{ position: 'absolute', inset: 0, display: 'block', fontSize: 'clamp(26px,4.6vw,50px)', lineHeight: 'clamp(38px,5.6vw,58px)', fontWeight: 400, letterSpacing: '-.02em', whiteSpace: 'nowrap', transition: 'transform .5s cubic-bezier(.16,1,.3,1), opacity .4s ease' }}>{p.title}</span>
+        <span className="swap-b" style={{ position: 'absolute', inset: 0, display: 'block', fontSize: 'clamp(26px,4.6vw,50px)', lineHeight: 'clamp(38px,5.6vw,58px)', fontWeight: 300, fontStyle: 'italic', letterSpacing: '-.02em', whiteSpace: 'nowrap', color: '#f4f4f4', transform: 'translateY(100%)', opacity: 0, transition: 'transform .5s cubic-bezier(.16,1,.3,1), opacity .4s ease' }}>{p.title}</span>
+      </span>
+      <span style={{ position: 'relative', width: 'clamp(150px,22vw,300px)', flex: 'none', height: 16, overflow: 'hidden', fontFamily: MONO, fontSize: 11, letterSpacing: '.12em', textTransform: 'uppercase' }}>
+        <span className="swap-a" style={{ position: 'absolute', inset: 0, display: 'block', lineHeight: '16px', color: 'rgba(255,255,255,.6)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', transition: 'transform .5s cubic-bezier(.16,1,.3,1), opacity .4s ease' }}>{p.category}</span>
+        <span className="swap-b" style={{ position: 'absolute', inset: 0, display: 'block', lineHeight: '16px', color: '#f4f4f4', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', transform: 'translateY(100%)', opacity: 0, transition: 'transform .5s cubic-bezier(.16,1,.3,1), opacity .4s ease' }}>{p.hoverLine}</span>
+      </span>
+      <span style={{ width: 78, flex: 'none', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8, fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,.55)' }}>
+        {p.live && <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#f4f4f4', animation: 'pulse 2.4s ease-in-out infinite' }} />}
+        {p.year}
+      </span>
+    </a>
+  );
+}
 
 export default function Home() {
+  const rowRefs = useRef([]);
+  const imgRefs = useRef([]);
+  const indexRef = useRef(null);
+  const ringRef = useRef(null);
+  const dotRef = useRef(null);
+  const previewRef = useRef(null);
 
-  const projects = [
-    {
-      title: 'Ping Pong game',
-      link: 'https://ping-pong-free.vercel.app/',
-      image: '/pingpong.png',
-    },
-    {
-      title: 'Spinning wheel',
-      link: 'https://spinning-wheel-free.vercel.app/',
-      image: '/spinning.png',
-    },
-    {
-      title: 'Chatbot',
-      link: 'https://raglet.live',
-      image: '/chatbot.png',
-    },
-    {
-      title: 'Todo list manager',
-      link: 'https://my-todo-io-app.vercel.app/',
-      image: '/todoapp.png',
-    }
-  ];
+  useEffect(() => {
+    const reveal = el => { el.style.opacity = "1"; el.style.transform = "none"; };
+    const all = () => Array.from(document.querySelectorAll("[data-rv]"));
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }), { threshold: 0.08 });
+    all().forEach(el => io.observe(el));
+    const fallback = setTimeout(() => all().forEach(reveal), 3000);
+    return () => { io.disconnect(); clearTimeout(fallback); };
+  }, []);
 
-   const links = [
-    {
-      title: "Home",
-      icon: (
-        <IoMdHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#",
-    },
-    {
-      title: "Skills",
-      icon: (
-        <PiCompassToolFill className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#skills",
-    },
-    {
-      title: "Projects",
-      icon: (
-        <LiaProjectDiagramSolid className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#projects",
-    },
-    {
-      title: "education",
-      icon: (
-        <IoSchoolSharp className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#education",
-    },
-    {
-      title: "contacts",
-      icon: (
-        <FaTelegramPlane className="h-full w-full text-neutral-500 dark:text-neutral-300" />
-      ),
-      href: "#contacts",
-    },
-  ];
-  const items = [
-    { icon: <FaDocker />, color: 'blue', label: 'Docker' },
-    { icon: <FaGitAlt />, color: 'gray', label: 'Git' },
-    { icon: <TbBrandCpp />, color: 'blue', label: 'C++' },
-    { icon: <FaC />, color: 'indigo', label: 'C' },
-    { icon: <IoLogoJavascript />, color: 'orange', label: 'Javascript' },
-    { icon: <FaReact />, color: 'blue', label: 'React' },
-    { icon: <RiNextjsFill />, color: 'gray', label: 'Nextjs' },
-    { icon: <RiTailwindCssFill />, color: 'blue', label: 'TailwindCss' },
-    { icon: <FaPython />, color: 'orange', label: 'Python' },
-    { icon: <SiPostgresql />, color: 'orange', label: 'Sql' },
-  ];
+  useEffect(() => {
+    const ring = ringRef.current;
+    const dot = dotRef.current;
+    const preview = previewRef.current;
+    const imgs = imgRefs.current.filter(Boolean);
+    const rows = rowRefs.current.filter(Boolean);
+    const index = indexRef.current;
+    if (!ring || !dot) return;
+
+    let tx = 0, ty = 0, rx = 0, ry = 0, px = 0, py = 0, lastPx = 0, tilt = 0;
+    let active = false, seeded = false, raf = null;
+
+    const move = e => {
+      tx = e.clientX; ty = e.clientY;
+      if (!active) { active = true; rx = tx; ry = ty; ring.style.opacity = "1"; dot.style.opacity = "1"; }
+      const big = !!e.target.closest("a,button,[data-work-row],img");
+      ring.style.width = big ? "68px" : "38px";
+      ring.style.height = big ? "68px" : "38px";
+      ring.style.margin = big ? "-34px 0 0 -34px" : "-19px 0 0 -19px";
+      ring.style.background = big ? "rgba(255,255,255,.14)" : "transparent";
+    };
+    const out = () => { active = false; ring.style.opacity = "0"; dot.style.opacity = "0"; };
+    window.addEventListener("mousemove", move);
+    document.addEventListener("mouseleave", out);
+
+    const swap = (row, on) => {
+      row.querySelectorAll(".swap-a").forEach(el => { el.style.transform = on ? "translateY(-100%)" : "translateY(0)"; el.style.opacity = on ? "0" : "1"; });
+      row.querySelectorAll(".swap-b").forEach(el => { el.style.transform = on ? "translateY(0)" : "translateY(100%)"; el.style.opacity = on ? "1" : "0"; });
+      const hair = row.querySelector(".hairline");
+      if (hair) hair.style.transform = on ? "scaleX(1)" : "scaleX(0)";
+    };
+
+    const enterHandlers = rows.map((row, i) => {
+      const handler = () => {
+        rows.forEach((r, j) => { r.style.opacity = j === i ? "1" : "0.28"; swap(r, j === i); });
+        imgs.forEach((im, j) => { im.style.opacity = j === i ? "1" : "0"; });
+        if (preview) preview.style.opacity = "1";
+      };
+      row.addEventListener("pointerenter", handler);
+      return handler;
+    });
+    const leaveHandler = () => {
+      rows.forEach(r => { r.style.opacity = "1"; swap(r, false); });
+      if (preview) preview.style.opacity = "0";
+    };
+    if (index) index.addEventListener("pointerleave", leaveHandler);
+
+    const tick = () => {
+      rx += (tx - rx) * 0.16; ry += (ty - ry) * 0.16;
+      ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
+      dot.style.transform = `translate3d(${tx}px,${ty}px,0)`;
+      if (preview) {
+        const w = window.innerWidth, h = window.innerHeight;
+        let gx = tx + 210; if (gx + 170 > w - 24) gx = tx - 210;
+        const gy = Math.min(Math.max(ty, 146), h - 146);
+        if (!seeded && active) { px = gx; py = gy; lastPx = gx; seeded = true; }
+        px += (gx - px) * 0.12; py += (gy - py) * 0.12;
+        const v = px - lastPx; lastPx = px;
+        tilt += (Math.max(-12, Math.min(12, v * 0.6)) - tilt) * 0.1;
+        preview.style.transform = `translate3d(${px}px,${py}px,0) rotate(${tilt}deg)`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    tick();
+
+    return () => {
+      window.removeEventListener("mousemove", move);
+      document.removeEventListener("mouseleave", out);
+      rows.forEach((row, i) => row.removeEventListener("pointerenter", enterHandlers[i]));
+      if (index) index.removeEventListener("pointerleave", leaveHandler);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <AuroraBackground>
-    <div className='relative z-10' >
-      <main className='px-5 pb-24' >
-        <section id='home' className="">
-          <nav className='p-10 mb-12 flex justify-between' >
-            <h1 className='italic text-2xl font-medium text-purple-600' >Ismail El Abbassi</h1>
-            <ul className='flex items-center' >
-              <li>
-                <a className='bg-linear-to-br from-purple-600 to-gray-800 hover:to-purple-900 transition duration-700 ease-in-out text-white px-4 py-2 rounded-md ml-8' 
-                  href="/eismail-cv.pdf"
-                  download="eismail-cv.pdf" >
-                  Resume
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div className='flex flex-col text-center items-center min-h-screen ' >
-            <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.5,
-                ease: "easeInOut",
-              }}
-              className="relative flex flex-col gap-4 items-center justify-center px-4"
-            >
-            <h3 className='text-2xl py-2 text-white '>Developer and computer science graduate</h3>
-            <p className='text-md py-5 leading-8 text-gray-300 max-w-200' >
-              I'm a versatile software developer with experience across systems programming, web applications. Proficient in languages like C, C++, Python, SQL, and Javascript, I've tackled complex projects across multiple fields. 
-              I thrive on solving challenging problems, collaborating in diverse teams, and continuously expanding my technical expertise.
-              I have developed robust skills in software development, problem-solving, and collaborative projects. With a solid foundation in coding and software architecture
-              I am passionate about blending technical expertise with creative vision, Eager to be innovative, efficient, impactful.
-            </p>
-            <div className=' flex justify-center gap-10 text-3xl'>
-              <a href='https://www.linkedin.com/in/ismail-el-abbassi-653b40231/' className='hover:bg-purple-600 transition duration-700 ease-in-out'>
-                <AiFillLinkedin />
-              </a>
-              <a href="https://github.com/ism417" className='hover:bg-purple-600 transition duration-700 ease-in-out rounded-2xl'>
-                <AiFillGithub/>
-              </a>
-            </div>
-            </motion.div>
-          </div>
-        </section>
-       <section className='pt-40 min-h-screen' >
-        <div className='z-50 bg-linear-to-br to-gray-800 flex justify-center fixed bottom-0 pb-2 left-0 right-0 px-10 flex-row gap-6' >
-            <FloatingDock
-              items={links}
-            />
-        </div>
-      </section>
-        <section id='skills' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
-            <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.5,
-                ease: "easeInOut",
-              }}
-              className="relative flex flex-col gap-4 items-center justify-center px-4"
-            >
+    <>
+      {/* drifting background layers */}
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', top: -260, left: -160, width: 820, height: 820, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,.09), rgba(255,255,255,0) 66%)', filter: 'blur(24px)', animation: 'drift1 28s ease-in-out infinite alternate' }} />
+        <div style={{ position: 'absolute', bottom: -320, right: -180, width: 900, height: 900, borderRadius: '50%', background: 'radial-gradient(circle, rgba(255,255,255,.07), rgba(255,255,255,0) 66%)', filter: 'blur(28px)', animation: 'drift2 36s ease-in-out infinite alternate' }} />
+        <div style={{ position: 'absolute', inset: 0, backgroundImage: 'radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px)', backgroundSize: '26px 26px', animation: 'dots 40s linear infinite' }} />
+      </div>
 
-          <div>
-            <h1 className='text-5xl text-white'>Skills</h1>
-          </div>
-          <div className=''>
-            <GlassIcons items={items} className=" relative grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2"/>
-          </div>
-          </motion.div>
-        </section>
-        <section id='projects' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20 overflow-x-hidden'>
-              
-          <div>
-            <h1 className='text-5xl text-white'>Projects</h1>
-          </div>
-            <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.5,
-                ease: "easeInOut",
-              }}
-              className="relative  gap-4  px-4"
-            >
-              <div className=" mx-auto px-8">
-                <HoverEffect items={projects} />
-              </div>
-          </motion.div>
-        </section>
-        <section id='education' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
-          <motion.div
-              initial={{ opacity: 0.0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.3,
-                duration: 0.5,
-                ease: "easeInOut",
-              }}
-              className="relative flex flex-col items-center gap-4  px-4"
-            >
-          <div >
-            <h1 className='text-5xl text-white'>Education</h1>
-          </div>
-          
-          <div className='grid lg:grid-cols-2 sm:grid-cols-2 p-10 hover:bg-purple-600/30 rounded-xl gap-10 overflow-hidden hover:translate-x-0 transition-all duration-800'>
-            <h3 className='col-span-2 text-center text-white' >1337 School 2023/2025</h3>
-            <div className='flex justify-center' >
-              <img src="1337.png" className='lg:size-60 md:size-60 size-40'></img>
-            </div>
-            <p className='text-xl text-gray-300 max-w-100' >
-              As 1337 student, 1337 is the first to provide IT training in Morocco, completely free of charge,
-              open and accessible to anyone between the ages of 18 and 30.
-              No need for an IT degree, or of having undergone extensive IT training.
-              The only criteria for admission in Treize, Trente-Sept is CREATIVITY.
-            </p>
-          </div>
-          <div className='grid grid-cols-2  p-10 rounded-xl gap-10 hover:bg-purple-600/30 hover:translate-x-0 transition-all duration-800'>
-            <h3 className='col-span-2 text-center text-white' >University Diploma 2018/2022</h3>
-            <div className='flex justify-center' >
-              <img src="zohr.png" className='lg:size-60 md:size-60 size-40' ></img>
-            </div>
-            <p className='text-xl text-gray-300 max-w-100' >
-              General University Diploma in mathematics and computer science from the faculty of science of ouarzazate.
-              The program covered a range of topics including programming, data structures, algorithms, databases, computer architecture, and software engineering.
-            </p>
-          </div>
-          </motion.div>
-        </section>
-        <section id='contacts' className='flex flex-col gap-10 text-3xl items-center min-h-screen pt-20'>
-          <div >
-            <h1 className='text-5xl text-white'>Contacts</h1>
-          </div>
-          <div className='grid lg:grid-cols-2 md:grid-cols-1 gap-10 max-w-4xl w-full px-5'>
-            <div className='flex flex-col gap-6 text-center'>
-              <h3 className='text-2xl text-white'>Get In Touch</h3>
-              <p className='text-lg text-gray-300 leading-relaxed'>
-                I'm always interested in new opportunities and collaborations. 
-                Whether you have a project in mind or just want to connect, 
-                feel free to reach out!
-              </p>
-              <div className='flex flex-col gap-4 text-lg'>
-                <div className='flex items-center justify-center gap-3'>
-                  <AiFillGithub className='text-purple-600' size={30} />
-                  <a href="https://github.com/ism417" className='text-gray-300 hover:text-purple-600 transition-colors'>
-                    github.com/ism417
-                  </a>
-                </div>
-                <div className='flex items-center justify-center gap-3'>
-                  <AiFillLinkedin className='text-purple-600' size={30} />
-                  <a href="https://www.linkedin.com/in/ismail-el-abbassi-653b40231/" className='text-gray-300 hover:text-purple-600 transition-colors'>
-                    linkedin.com/in/ismail-el-abbassi
-                  </a>
-                </div>
+      {/* custom cursor + hover preview */}
+      <div data-cursor-layer="" style={{ position: 'fixed', inset: 0, zIndex: 90, pointerEvents: 'none' }}>
+        <div ref={ringRef} style={{ position: 'absolute', top: 0, left: 0, width: 38, height: 38, margin: '-19px 0 0 -19px', border: '1px solid rgba(255,255,255,.7)', borderRadius: '50%', transition: 'width .28s ease, height .28s ease, margin .28s ease, background .28s ease', opacity: 0 }} />
+        <div ref={dotRef} style={{ position: 'absolute', top: 0, left: 0, width: 5, height: 5, margin: '-2.5px 0 0 -2.5px', borderRadius: '50%', background: '#f4f4f4', opacity: 0 }} />
+        <div ref={previewRef} style={{ position: 'absolute', top: 0, left: 0, width: 340, height: 260, margin: '-130px 0 0 -170px', borderRadius: 4, overflow: 'hidden', background: '#1c1c1c', border: '1px solid rgba(255,255,255,.16)', boxShadow: '0 26px 70px rgba(0,0,0,.55)', opacity: 0, transition: 'opacity .4s cubic-bezier(.16,1,.3,1)' }}>
+          {PROJECTS.map((p, i) => (
+            <img
+              key={p.link}
+              ref={el => { imgRefs.current[i] = el; }}
+              src={p.image}
+              alt=""
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', opacity: 0, transition: 'opacity .45s ease' }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <header style={{ position: 'sticky', top: 0, zIndex: 40, display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24, padding: '18px clamp(20px,5vw,72px)', background: 'rgba(18,18,18,.82)', backdropFilter: 'blur(10px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <a href="#top" style={{ fontSize: 15, letterSpacing: '.02em', textDecoration: 'none', color: '#f4f4f4' }}>Ismail El Abbassi</a>
+          <nav style={{ display: 'flex', flexWrap: 'wrap', gap: 'clamp(14px,2vw,26px)', fontFamily: MONO, fontSize: 10.5, letterSpacing: '.09em', textTransform: 'uppercase' }}>
+            <a href="#work" className="nav-link" style={{ textDecoration: 'none', color: 'rgba(255,255,255,.62)' }}>Work</a>
+            <a href="#craft" className="nav-link" style={{ textDecoration: 'none', color: 'rgba(255,255,255,.62)' }}>Craft</a>
+            <a href="#path" className="nav-link" style={{ textDecoration: 'none', color: 'rgba(255,255,255,.62)' }}>Path</a>
+            <a href="#contact" style={{ textDecoration: 'none', color: '#f4f4f4' }}>Enquire</a>
+          </nav>
+        </header>
+
+        <section id="top" style={{ padding: 'clamp(56px,9vw,96px) clamp(20px,5vw,72px) clamp(48px,6vw,64px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <div data-rv="" style={{ opacity: 0, transform: 'translateY(18px)', transition: 'opacity .8s ease, transform .8s ease', maxWidth: 1240, margin: '0 auto' }}>
+            <div style={{ fontFamily: MONO, fontSize: 10.5, letterSpacing: '.14em', textTransform: 'uppercase', color: '#dcdcdc', marginBottom: 'clamp(20px,3vw,30px)' }}>Independent fullstack developer — Morocco</div>
+            <h1 style={{ margin: 0, fontSize: 'clamp(38px,6.6vw,76px)', lineHeight: 1.03, fontWeight: 300, letterSpacing: '-.022em', maxWidth: 900 }}>I build the software small teams <em style={{ fontStyle: 'italic', color: '#dcdcdc' }}>don&apos;t have the hands</em> to build.</h1>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px,1fr))', gap: 'clamp(24px,4vw,56px)', marginTop: 'clamp(28px,4vw,44px)', alignItems: 'start' }}>
+              <p style={{ margin: 0, fontSize: 'clamp(16px,1.5vw,19px)', lineHeight: 1.65, color: '#b4b4b4', maxWidth: 620 }}>Ten years of curiosity, four of them writing production code. C and C++ taught me where the cost is; React, Next.js and Postgres are where I spend most days. I work directly with founders — scope, build, deploy, hand over.</p>
+              <div style={{ fontFamily: MONO, fontSize: 11, lineHeight: 2.2, color: 'rgba(255,255,255,.6)', borderLeft: '1px solid rgba(255,255,255,.2)', paddingLeft: 22 }}>
+                <div>Booking → Oct 2026</div>
+                <div>Typical engagement → 4–8 weeks</div>
+                <div>Response → under 24h</div>
               </div>
             </div>
-            <div className='flex flex-col gap-6'>
-              <h3 className='text-2xl text-purple-600 text-center'>Send a Message</h3>
-              <form className='flex flex-col gap-4 text-sm'>
-                <input 
-                  type='text' 
-                  placeholder='Your Name' 
-                  className='p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
-                />
-                <input 
-                  type='email' 
-                  placeholder='Your Email' 
-                  className='p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
-                />
-                <textarea 
-                  placeholder='Your Message' 
-                  rows='5'
-                  className='p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none'
-                ></textarea>
-                <button 
-                  className='bg-linear-to-r from-purple-600 to-purple-900 text-white py-3 px-6 rounded-lg hover:scale-105 transition-all duration-300 text-lg font-medium'
-                >
-                  Send Message
-                </button>
-              </form>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 'clamp(28px,4vw,44px)', alignItems: 'center' }}>
+              <a href="#contact" className="cta-btn" style={{ textDecoration: 'none', background: '#f4f4f4', color: '#121212', padding: '15px 28px', fontFamily: MONO, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase' }}>Start an enquiry</a>
+              <a href="/eismail-cv.pdf" download="eismail-cv.pdf" className="resume-link" style={{ textDecoration: 'none', fontFamily: MONO, fontSize: 11, letterSpacing: '.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,.7)', borderBottom: '1px solid rgba(255,255,255,.3)', paddingBottom: 3 }}>Résumé, PDF</a>
             </div>
           </div>
-          <div className='text-center text-lg text-gray-400 mt-10'>
-            <p>© 2025 Ismail El Abbassi. All rights reserved.</p>
+        </section>
+
+        <section style={{ padding: '26px clamp(20px,5vw,72px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: 14, alignItems: 'baseline', fontFamily: MONO, fontSize: 11.5, color: 'rgba(255,255,255,.72)' }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#f4f4f4', animation: 'pulse 2.4s ease-in-out infinite' }} />
+            <span style={{ letterSpacing: '.12em', textTransform: 'uppercase', color: '#dcdcdc' }}>Now</span>
+            <span style={{ flex: 1, minWidth: 240 }}>Building raglet.live, a retrieval chatbot · reading up on Go and system design · two client slots open this quarter</span>
           </div>
         </section>
-      </main>
-    </div>
-    </AuroraBackground>
+
+        <section id="work" style={{ padding: 'clamp(48px,7vw,76px) clamp(20px,5vw,72px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: 'clamp(24px,4vw,56px)', alignItems: 'end', marginBottom: 'clamp(32px,4vw,52px)' }}>
+              <h2 style={{ margin: 0, fontSize: 'clamp(28px,3.4vw,38px)', fontWeight: 300, letterSpacing: '-.01em' }}>Things I built,<br /><em style={{ fontStyle: 'italic', color: '#b4b4b4' }}>and why they hold up</em></h2>
+              <p style={{ margin: 0, fontSize: 16, lineHeight: 1.7, color: '#b4b4b4' }}>Two of these run in production today. The rest are the low-level work behind them — the projects where you find out what an abstraction is actually costing you.</p>
+            </div>
+            <div ref={indexRef} style={{ display: 'flex', flexDirection: 'column' }}>
+              {PROJECTS.map((p, i) => (
+                <WorkRow key={p.link} p={p} rowRef={el => { rowRefs.current[i] = el; }} />
+              ))}
+              <div style={{ borderTop: '1px solid rgba(255,255,255,.12)' }} />
+            </div>
+          </div>
+        </section>
+
+        <section id="craft" style={{ padding: 'clamp(48px,7vw,76px) clamp(20px,5vw,72px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px,1fr))', gap: 'clamp(24px,4vw,56px)', alignItems: 'start' }}>
+            <div>
+              <h2 style={{ margin: 0, fontSize: 'clamp(28px,3.4vw,38px)', fontWeight: 300, letterSpacing: '-.01em' }}>Craft</h2>
+              <p style={{ margin: '16px 0 0', fontSize: 15.5, lineHeight: 1.7, color: '#b4b4b4', maxWidth: 380 }}>Systems languages at the bottom, product work at the top. I pick the smallest tool that survives the requirement.</p>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+              {STACK.map(s => (
+                <span key={s} className="stack-pill" style={{ fontFamily: MONO, fontSize: 12, padding: '9px 15px', border: '1px solid rgba(255,255,255,.22)', borderRadius: 999, transition: 'all .3s ease' }}>{s}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="path" style={{ padding: 'clamp(48px,7vw,76px) clamp(20px,5vw,72px)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+            <h2 style={{ margin: '0 0 clamp(26px,3.5vw,40px)', fontSize: 'clamp(28px,3.4vw,38px)', fontWeight: 300, letterSpacing: '-.01em' }}>Path</h2>
+            {TIMELINE.map(t => (
+              <div key={t.years + t.title} data-rv="" style={{ opacity: 0, transform: 'translateY(18px)', transition: 'opacity .8s ease, transform .8s ease', display: 'grid', gridTemplateColumns: 'minmax(120px,150px) 1fr', gap: 'clamp(18px,3vw,36px)', padding: '26px 0', borderTop: '1px solid rgba(255,255,255,.12)' }}>
+                <div style={{ fontFamily: MONO, fontSize: 11, color: 'rgba(255,255,255,.6)', paddingTop: 5 }}>{t.years}</div>
+                <div>
+                  <div style={{ fontSize: 'clamp(18px,2vw,22px)', fontWeight: 400 }}>{t.title}</div>
+                  <p style={{ margin: '9px 0 0', fontSize: 16, lineHeight: 1.7, color: '#b4b4b4', maxWidth: 680 }}>{t.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" style={{ padding: 'clamp(52px,7vw,80px) clamp(20px,5vw,72px) clamp(60px,8vw,92px)' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px,1fr))', gap: 'clamp(28px,4vw,56px)', alignItems: 'end' }}>
+            <div>
+              <h2 style={{ margin: 0, fontSize: 'clamp(34px,4.6vw,52px)', fontWeight: 300, lineHeight: 1.1, letterSpacing: '-.018em' }}>Tell me what<br />you&apos;re building.</h2>
+              <p style={{ margin: '20px 0 0', fontSize: 17, lineHeight: 1.7, color: '#b4b4b4', maxWidth: 420 }}>A paragraph about the problem is enough to start. I&apos;ll reply with scope, timeline and a number.</p>
+            </div>
+            <div style={{ fontFamily: MONO, fontSize: 12.5, lineHeight: 2.4, color: 'rgba(255,255,255,.78)' }}>
+              <div><span style={{ color: 'rgba(255,255,255,.5)', display: 'inline-block', width: 80 }}>Email</span> <a href="mailto:ismailelabbassi220@gmail.com" className="contact-link" style={{ textDecoration: 'none', color: 'inherit' }}>ismailelabbassi220@gmail.com</a></div>
+              <div><span style={{ color: 'rgba(255,255,255,.5)', display: 'inline-block', width: 80 }}>GitHub</span> <a href="https://github.com/ism417" target="_blank" rel="noreferrer" className="contact-link" style={{ textDecoration: 'none', color: 'inherit' }}>github.com/ism417</a></div>
+              <div><span style={{ color: 'rgba(255,255,255,.5)', display: 'inline-block', width: 80 }}>LinkedIn</span> <a href="https://www.linkedin.com/in/ismail-el-abbassi-653b40231/" target="_blank" rel="noreferrer" className="contact-link" style={{ textDecoration: 'none', color: 'inherit' }}>ismail-el-abbassi</a></div>
+              <div style={{ marginTop: 30, fontSize: 10.5, color: 'rgba(255,255,255,.45)' }}>© 2026 Ismail El Abbassi</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <style jsx global>{`
+        .nav-link:hover { color: #f4f4f4; }
+        .cta-btn:hover { background: #c9c9c9; color: #121212; }
+        .resume-link:hover { color: #f4f4f4; }
+        .contact-link:hover { color: #f4f4f4; }
+        .stack-pill:hover { background: #f4f4f4; color: #121212; border-color: #f4f4f4; }
+      `}</style>
+    </>
   );
 }
