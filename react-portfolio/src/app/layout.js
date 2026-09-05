@@ -1,43 +1,28 @@
-import { Geist, Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Newsreader, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const newsreader = Newsreader({
   subsets: ["latin"],
+  weight: ["300", "400"],
+  style: ["normal", "italic"],
+  variable: "--font-newsreader",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata = {
   title: "Ismail El Abbassi - Portfolio",
-  description: "Developer and computer science graduate portfolio",
-  icons: {
-    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>',
-  },
+  description: "Fullstack software engineer. Projects, craft and path.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" className={`${newsreader.variable} ${jetbrainsMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

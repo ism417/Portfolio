@@ -1,0 +1,9 @@
+.section {
+  padding: var(--section-y) var(--gutter);
+  border-bottom: 1px solid var(--rule);
+}
+
+.inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+}
