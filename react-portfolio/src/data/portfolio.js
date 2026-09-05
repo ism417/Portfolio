@@ -1,6 +1,6 @@
 export const profile = {
   name: "Ismail El Abbassi",
-  eyebrow: "Fullstack developer — Morocco",
+  eyebrow: "Fullstack software engineer — Morocco",
   headline: {
     before: "I build software end to end, ",
     emphasis: "from the schema",
@@ -107,7 +107,7 @@ export const stack = [
 export const timeline = [
   {
     years: "2026 — now",
-    title: "Fullstack developer intern, DulfiTech",
+    title: "Software engineer intern, DulfiTech",
     body: "Building an internal dashboard with React and Node, on a team working across several technology solutions.",
   },
   {
