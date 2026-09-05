@@ -26,8 +26,8 @@ export default function Hero() {
           </div>
         </div>
         <div className={styles.actions}>
-          <a href="#contact" className={styles.cta}>Start an enquiry</a>
-          <a href={profile.resume} download className={styles.resume}>Résumé, PDF</a>
+          <a href="#contact" className={styles.cta}>{profile.cta}</a>
+          <a href={profile.resume} download className={styles.resume}>{profile.resumeLabel}</a>
         </div>
       </div>
     </Section>

@@ -2,7 +2,7 @@
 
 import Section from '@/components/Section';
 import { useReveal } from '@/hooks/useReveal';
-import { timeline } from '@/data/portfolio';
+import { sections, timeline } from '@/data/portfolio';
 import styles from './Path.module.css';
 
 function TimelineEntry({ entry }) {
@@ -22,7 +22,7 @@ function TimelineEntry({ entry }) {
 export default function Path() {
   return (
     <Section id="path">
-      <h2 className={styles.heading}>Path</h2>
+      <h2 className={styles.heading}>{sections.path.heading}</h2>
       {timeline.map(entry => (
         <TimelineEntry key={`${entry.years}-${entry.title}`} entry={entry} />
       ))}

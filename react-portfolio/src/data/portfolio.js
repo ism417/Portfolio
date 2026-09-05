@@ -1,20 +1,45 @@
 export const profile = {
   name: "Ismail El Abbassi",
-  eyebrow: "Independent fullstack developer — Morocco",
+  eyebrow: "Fullstack developer — Morocco",
   headline: {
-    before: "I build the software small teams ",
-    emphasis: "don't have the hands",
-    after: " to build.",
+    before: "I build software end to end, ",
+    emphasis: "from the schema",
+    after: " to the last pixel.",
   },
   intro:
-    "Ten years of curiosity, four of them writing production code. C and C++ taught me where the cost is; React, Next.js and Postgres are where I spend most days. I work directly with founders — scope, build, deploy, hand over.",
+    "C and C++ at 1337 taught me where the cost is; React, Next.js and Postgres are where I spend most days. Right now I'm building internal tools at DulfiTech, and looking for engineering work where I can own a feature end to end.",
   terms: [
-    "Booking → Oct 2026",
-    "Typical engagement → 4–8 weeks",
-    "Response → under 24h",
+    "Currently → DulfiTech, fullstack intern",
+    "Focus → React, Next.js, Node, Postgres",
+    "Open to → engineering roles",
   ],
+  cta: "Get in touch",
   resume: "/eismail-cv.pdf",
-  now: "Building raglet.live, a retrieval chatbot · reading up on Go and system design · two client slots open this quarter",
+  resumeLabel: "Résumé, PDF",
+  now: "Building raglet.live, a retrieval chatbot · reading up on Go and system design · shipping internal tools at DulfiTech",
+};
+
+export const sections = {
+  work: {
+    heading: "Things I built,",
+    headingEmphasis: "and why they hold up",
+    blurb:
+      "All four are live. The small ones are where you find out what an abstraction is actually costing you.",
+  },
+  craft: {
+    heading: "Craft",
+    blurb:
+      "Systems languages at the bottom, product work at the top. I pick the smallest tool that survives the requirement.",
+  },
+  path: {
+    heading: "Path",
+  },
+  contact: {
+    heading: "Open to the next",
+    headingSecondLine: "engineering role.",
+    pitch:
+      "I'm interning at DulfiTech and open to fullstack engineering work. Tell me about the team and the problem — I'll reply within a day.",
+  },
 };
 
 export const projects = [
@@ -83,12 +108,7 @@ export const timeline = [
   {
     years: "2026 — now",
     title: "Fullstack developer intern, DulfiTech",
-    body: "Building an internal dashboard with React and Node.",
-  },
-  {
-    years: "2025 — now",
-    title: "Freelance fullstack developer",
-    body: "Currently building raglet.live and taking scoped client work.",
+    body: "Building an internal dashboard with React and Node, on a team working across several technology solutions.",
   },
   {
     years: "2023 — 2025",
@@ -103,8 +123,6 @@ export const timeline = [
 ];
 
 export const contact = {
-  pitch:
-    "A paragraph about the problem is enough to start. I'll reply with scope, timeline and a number.",
   links: [
     { label: "Email", text: "ismailelabbassi220@gmail.com", href: "mailto:ismailelabbassi220@gmail.com" },
     { label: "GitHub", text: "github.com/ism417", href: "https://github.com/ism417", external: true },
@@ -121,5 +139,5 @@ export const navigation = [
   { label: "Work", href: "#work" },
   { label: "Craft", href: "#craft" },
   { label: "Path", href: "#path" },
-  { label: "Enquire", href: "#contact", primary: true },
+  { label: "Contact", href: "#contact", primary: true },
 ];

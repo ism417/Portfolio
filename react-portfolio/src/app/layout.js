@@ -16,7 +16,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata = {
   title: "Ismail El Abbassi - Portfolio",
-  description: "Independent fullstack developer — Morocco. Projects, craft and path.",
+  description: "Fullstack developer — Morocco. Projects, craft and path.",
   icons: {
     icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"/>',
   },

@@ -2,7 +2,7 @@
 
 import Section from '@/components/Section';
 import { useReveal } from '@/hooks/useReveal';
-import { projects } from '@/data/portfolio';
+import { projects, sections } from '@/data/portfolio';
 import styles from './Work.module.css';
 
 function WorkRow({ project, onEnter }) {
@@ -45,14 +45,11 @@ export default function Work({ onHoverProject }) {
     <Section id="work">
       <div className={styles.head}>
         <h2 className={styles.heading}>
-          Things I built,
+          {sections.work.heading}
           <br />
-          <em>and why they hold up</em>
+          <em>{sections.work.headingEmphasis}</em>
         </h2>
-        <p className={styles.blurb}>
-          Two of these run in production today. The rest are the low-level work behind them — the
-          projects where you find out what an abstraction is actually costing you.
-        </p>
+        <p className={styles.blurb}>{sections.work.blurb}</p>
       </div>
 
       <div className={styles.index} onPointerLeave={() => onHoverProject(null)}>

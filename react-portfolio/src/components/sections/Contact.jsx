@@ -1,5 +1,5 @@
 import Section from '@/components/Section';
-import { contact, profile } from '@/data/portfolio';
+import { contact, profile, sections } from '@/data/portfolio';
 import styles from './Contact.module.css';
 
 export default function Contact() {
@@ -8,11 +8,11 @@ export default function Contact() {
       <div className={styles.grid}>
         <div>
           <h2 className={styles.heading}>
-            Tell me what
+            {sections.contact.heading}
             <br />
-            you&apos;re building.
+            {sections.contact.headingSecondLine}
           </h2>
-          <p className={styles.pitch}>{contact.pitch}</p>
+          <p className={styles.pitch}>{sections.contact.pitch}</p>
         </div>
         <div className={styles.details}>
           {contact.links.map(link => (
