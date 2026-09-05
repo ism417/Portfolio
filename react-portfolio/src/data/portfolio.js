@@ -1,6 +1,6 @@
 export const profile = {
   name: "Ismail El Abbassi",
-  eyebrow: "Fullstack software engineer — Morocco",
+  eyebrow: "Fullstack software engineer",
   headline: {
     before: "I build software end to end, ",
     emphasis: "from the schema",
