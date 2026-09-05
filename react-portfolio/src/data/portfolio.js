@@ -81,14 +81,14 @@ export const stack = [
 
 export const timeline = [
   {
+    years: "2026 — now",
+    title: "Fullstack developer intern, DulfiTech",
+    body: "Building an internal dashboard with React and Node.",
+  },
+  {
     years: "2025 — now",
     title: "Freelance fullstack developer",
     body: "Currently building raglet.live and taking scoped client work.",
-  },
-  {
-    years: "2024 — 2025",
-    title: "Internship / first engineering role",
-    body: "Placeholder entry — replace with the company, the stack, and one measurable outcome.",
   },
   {
     years: "2023 — 2025",
