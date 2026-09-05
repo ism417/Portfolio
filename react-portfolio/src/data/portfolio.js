@@ -9,7 +9,7 @@ export const profile = {
   intro:
     "C and C++ at 1337 taught me where the cost is; React, Next.js and Postgres are where I spend most days. Right now I'm building internal tools at DulfiTech, and looking for engineering work where I can own a feature end to end.",
   terms: [
-    "Currently → DulfiTech, fullstack intern",
+    "Currently → Intern at DulfiTech, Casablanca",
     "Focus → React, Next.js, Node, Postgres",
     "Open to → engineering roles",
   ],
@@ -108,7 +108,7 @@ export const timeline = [
   {
     years: "2026 — now",
     title: "Software engineer intern, DulfiTech",
-    body: "Building an internal dashboard with React and Node, on a team working across several technology solutions.",
+    body: "Building an internal dashboard with React and Node in Casablanca, on a team working across several technology solutions.",
   },
   {
     years: "2023 — 2025",
