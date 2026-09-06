@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link';
 import Section from '@/components/Section';
 import { useReveal } from '@/hooks/useReveal';
 import { projects, sections } from '@/data/portfolio';
@@ -9,11 +10,9 @@ function WorkRow({ project, onEnter }) {
   const [ref, revealed] = useReveal();
 
   return (
-    <a
+    <Link
       ref={ref}
-      href={project.link}
-      target="_blank"
-      rel="noreferrer"
+      href={`/work/${project.id}`}
       data-work-row=""
       data-revealed={String(revealed)}
       className={styles.row}
@@ -36,7 +35,7 @@ function WorkRow({ project, onEnter }) {
         {project.live && <span className={styles.beacon} />}
         {project.year}
       </span>
-    </a>
+    </Link>
   );
 }
 

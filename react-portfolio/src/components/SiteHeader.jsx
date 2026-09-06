@@ -4,7 +4,7 @@ import styles from './SiteHeader.module.css';
 export default function SiteHeader() {
   return (
     <header className={styles.header}>
-      <a href="#top" className={styles.wordmark}>{profile.name}</a>
+      <a href="/#top" className={styles.wordmark}>{profile.name}</a>
       <nav className={styles.nav}>
         {navigation.map(item => (
           <a

@@ -1,0 +1,463 @@
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------- banner */
+
+.banner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(360px, 62vh, 620px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--rule);
+}
+
+.banner[data-variant='type'] {
+  background: var(--surface);
+}
+
+/* A dot field stands in for the screenshot the terminal projects will never have. */
+.banner[data-variant='type']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: 0.5;
+  mask-image: linear-gradient(to top, transparent, #000 70%);
+  -webkit-mask-image: linear-gradient(to top, transparent, #000 70%);
+}
+
+/* The banner image fills the frame; the title sits on top of it. Anything that
+   needs to be read rather than felt goes in a gallery figure instead. */
+.bannerMedia {
+  position: absolute;
+  inset: 0;
+}
+
+.bannerImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    var(--bg) 4%,
+    rgba(18, 18, 18, 0.86) 34%,
+    rgba(18, 18, 18, 0.5) 70%,
+    rgba(18, 18, 18, 0.55) 100%
+  );
+}
+
+.bannerTop,
+.bannerInner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+
+.bannerTop {
+  padding: clamp(22px, 3vw, 34px) var(--gutter) 0;
+}
+
+.bannerInner {
+  margin-top: auto;
+  padding: 40px var(--gutter) clamp(30px, 4vw, 48px);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--text-faint);
+  transition: color 0.4s ease;
+}
+
+.back:hover {
+  color: var(--text);
+}
+
+.backArrow {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.back:hover .backArrow {
+  transform: translateX(-5px);
+}
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.liveTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+}
+
+.beacon {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.title {
+  margin: 18px 0 0;
+  font-size: clamp(38px, 7.4vw, 92px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.tagline {
+  margin: 20px 0 0;
+  max-width: 34ch;
+  font-size: clamp(17px, 2vw, 24px);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------ highlights */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.stat {
+  padding: clamp(24px, 3vw, 36px) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.statValue {
+  margin: 0;
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+}
+
+.statLabel {
+  margin: 10px 0 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+@media (min-width: 720px) {
+  .stat + .stat {
+    padding-left: clamp(24px, 3vw, 40px);
+    border-left: 1px solid var(--rule);
+  }
+}
+
+/* ------------------------------------------------------------------ body */
+
+.body {
+  display: grid;
+  gap: clamp(44px, 5vw, 72px);
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(48px, 6vw, 88px) var(--gutter) 0;
+}
+
+@media (min-width: 900px) {
+  .body {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  }
+}
+
+.column {
+  min-width: 0;
+}
+
+.label {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.para {
+  margin: 22px 0 0;
+  font-size: clamp(16px, 1.35vw, 18px);
+  line-height: 1.72;
+  color: var(--text-soft);
+}
+
+.features {
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.para + .label {
+  margin-top: clamp(40px, 5vw, 60px);
+}
+
+.feature {
+  display: flex;
+  gap: clamp(16px, 2.4vw, 28px);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--text-muted);
+}
+
+.featureNum {
+  flex: none;
+  padding-top: 3px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* --------------------------------------------------------------- sidebar */
+
+.aside {
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .asideInner {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.facts {
+  margin: 0;
+  padding: 0;
+}
+
+.fact + .fact {
+  margin-top: clamp(26px, 3vw, 34px);
+}
+
+.factValue {
+  margin: 12px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: 5px 10px;
+  border: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.note {
+  margin: clamp(26px, 3vw, 34px) 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: clamp(30px, 3.5vw, 40px);
+}
+
+.action,
+.actionPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.45s ease, color 0.45s ease, border-color 0.45s ease;
+}
+
+.actionPrimary {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.actionPrimary:hover {
+  background: transparent;
+  color: var(--text);
+}
+
+.action {
+  border-color: var(--rule);
+  color: var(--text-muted);
+}
+
+.action:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+.actionArrow {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.action:hover .actionArrow {
+  transform: translate(3px, -3px);
+}
+
+/* --------------------------------------------------------------- gallery */
+
+.gallery {
+  max-width: var(--measure);
+  margin: clamp(56px, 7vw, 96px) auto 0;
+  padding: 0 var(--gutter);
+}
+
+.figure {
+  margin: 0;
+  border: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+.figure + .figure {
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+.figureMedia {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Tall captures would otherwise run to a full screen of their own. */
+.figure[data-fit='contain'] .figureMedia {
+  padding: clamp(16px, 2.4vw, 32px);
+  box-sizing: border-box;
+  max-height: 76vh;
+  object-fit: contain;
+}
+
+.caption {
+  padding: 14px clamp(16px, 2.4vw, 22px);
+  border-top: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: var(--text-faint);
+}
+
+/* ------------------------------------------------------------ next project */
+
+.next {
+  max-width: var(--measure);
+  margin: clamp(64px, 8vw, 120px) auto 0;
+  padding: 0 var(--gutter) clamp(56px, 7vw, 96px);
+}
+
+.nextLink {
+  display: block;
+  padding-top: clamp(26px, 3vw, 36px);
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+}
+
+.nextTitle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 14px;
+  font-size: clamp(28px, 4.4vw, 52px);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--text-muted);
+  transition: color 0.45s ease;
+}
+
+.nextLink:hover .nextTitle {
+  color: var(--text);
+}
+
+.nextArrow {
+  display: inline-block;
+  font-size: 0.6em;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nextLink:hover .nextArrow {
+  transform: translateX(10px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beacon {
+    animation: none;
+  }
+
+  .back:hover .backArrow,
+  .action:hover .actionArrow,
+  .nextLink:hover .nextArrow {
+    transform: none;
+  }
+}

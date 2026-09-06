@@ -7,7 +7,10 @@ const RING_EASE = 0.16;
 const PREVIEW_EASE = 0.12;
 const TILT_LIMIT = 12;
 const PREVIEW_OFFSET = 210;
-const PREVIEW_HALF_HEIGHT = 146;
+
+/** The preview frame takes the shape of whatever it holds, within these bounds. */
+const PREVIEW_HEIGHT = 200;
+const PREVIEW_MAX_WIDTH = 440;
 
 /**
  * A lagging ring plus a dot at the true pointer position. Position is driven imperatively
@@ -18,6 +21,46 @@ export default function CursorLayer({ projects, activeProject }) {
   const ringRef = useRef(null);
   const dotRef = useRef(null);
   const previewRef = useRef(null);
+
+  // Written by the sizing effect, read by the animation frame — refs, so the loop never goes stale.
+  const halfWidth = useRef(PREVIEW_MAX_WIDTH / 2);
+  const halfHeight = useRef(PREVIEW_HEIGHT / 2);
+
+  /**
+   * Match the frame to the active image's aspect ratio, so a shot is never letterboxed.
+   * The ratio is read off the loaded image rather than stored alongside it, so swapping
+   * a file in `public/` is all it takes.
+   */
+  useEffect(() => {
+    const preview = previewRef.current;
+    if (!preview || activeProject === null) return;
+
+    const image = preview.querySelector(`[data-project="${activeProject}"]`);
+    if (!image) return;
+
+    const size = () => {
+      const ratio = image.naturalWidth / image.naturalHeight;
+      if (!ratio || !Number.isFinite(ratio)) return;
+
+      let width = PREVIEW_HEIGHT * ratio;
+      let height = PREVIEW_HEIGHT;
+      if (width > PREVIEW_MAX_WIDTH) {
+        width = PREVIEW_MAX_WIDTH;
+        height = PREVIEW_MAX_WIDTH / ratio;
+      }
+
+      preview.style.width = `${Math.round(width)}px`;
+      preview.style.height = `${Math.round(height)}px`;
+      halfWidth.current = width / 2;
+      halfHeight.current = height / 2;
+    };
+
+    if (image.complete) size();
+    else {
+      image.addEventListener('load', size, { once: true });
+      return () => image.removeEventListener('load', size);
+    }
+  }, [activeProject]);
 
   useEffect(() => {
     const layer = layerRef.current;
@@ -57,10 +100,10 @@ export default function CursorLayer({ projects, activeProject }) {
       dot.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
 
       let goalX = targetX + PREVIEW_OFFSET;
-      if (goalX + 170 > window.innerWidth - 24) goalX = targetX - PREVIEW_OFFSET;
+      if (goalX + halfWidth.current > window.innerWidth - 24) goalX = targetX - PREVIEW_OFFSET;
       const goalY = Math.min(
-        Math.max(targetY, PREVIEW_HALF_HEIGHT),
-        window.innerHeight - PREVIEW_HALF_HEIGHT
+        Math.max(targetY, halfHeight.current),
+        window.innerHeight - halfHeight.current
       );
       if (!seeded && active) {
         previewX = goalX;
@@ -74,7 +117,9 @@ export default function CursorLayer({ projects, activeProject }) {
       const velocity = previewX - lastPreviewX;
       lastPreviewX = previewX;
       tilt += (Math.max(-TILT_LIMIT, Math.min(TILT_LIMIT, velocity * 0.6)) - tilt) * 0.1;
-      preview.style.transform = `translate3d(${previewX}px, ${previewY}px, 0) rotate(${tilt}deg)`;
+      // The trailing -50% keeps the frame centred on the pointer whatever its width.
+      preview.style.transform =
+        `translate3d(${previewX}px, ${previewY}px, 0) rotate(${tilt}deg) translate(-50%, -50%)`;
 
       frame = requestAnimationFrame(tick);
     };
@@ -95,9 +140,10 @@ export default function CursorLayer({ projects, activeProject }) {
         {projects.map(project => (
           <img
             key={project.id}
+            data-project={project.id}
             className={styles.previewImage}
             data-visible={String(project.id === activeProject)}
-            src={project.image}
+            src={project.preview ?? project.image}
             alt=""
           />
         ))}

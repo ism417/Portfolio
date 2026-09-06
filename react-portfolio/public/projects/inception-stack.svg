@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 571" width="1600" height="571" role="img" aria-label="Inception stack: eight services on one Docker network behind Nginx">
+  <title>Inception — container topology</title>
+
+  <defs>
+    <marker id="head" viewBox="0 0 8 8" refX="7.5" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L8 4 L0 8 Z" fill="rgba(255,255,255,0.42)"/>
+    </marker>
+    <style>
+      .mono { font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+      .name { font-size: 19px; fill: #f4f4f4; letter-spacing: -0.01em; }
+      .role { font-size: 12.5px; fill: #b4b4b4; }
+      .meta { font-size: 11px; fill: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+      .label { font-size: 11.5px; fill: rgba(255,255,255,0.5); letter-spacing: 0.14em; }
+      .box { fill: #1c1c1c; stroke: rgba(255,255,255,0.14); }
+      .link { stroke: rgba(255,255,255,0.34); stroke-width: 1.25; marker-end: url(#head); }
+    </style>
+  </defs>
+
+  <rect width="1600" height="571" fill="#121212"/>
+
+  <!-- ingress -->
+  <circle cx="112" cy="140" r="23" fill="none" stroke="rgba(255,255,255,0.34)"/>
+  <path d="M89 140 h46 M112 117 a34 34 0 0 1 0 46 a34 34 0 0 1 0 -46" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1"/>
+  <text class="mono label" x="112" y="192" text-anchor="middle">INTERNET</text>
+  <line class="link" x1="140" y1="140" x2="247" y2="140"/>
+  <text class="mono meta" x="193" y="128" text-anchor="middle">:443</text>
+
+  <!-- the one user-defined network everything joins -->
+  <rect class="box" x="225" y="40" width="1330" height="300" rx="4" fill="none"/>
+  <text class="mono label" x="245" y="70">NETWORK · INCEPTION</text>
+
+  <!-- row 1 -->
+  <rect class="box" x="255" y="100" width="280" height="80" rx="3"/>
+  <text class="name" x="275" y="130">nginx</text>
+  <text class="role" x="275" y="150">reverse proxy · tls</text>
+  <text class="mono meta" x="275" y="168">:443 · tls termination</text>
+
+  <rect class="box" x="585" y="100" width="280" height="80" rx="3"/>
+  <text class="name" x="605" y="130">wordpress</text>
+  <text class="role" x="605" y="150">php-fpm</text>
+  <text class="mono meta" x="605" y="168">vol: wordpress · no port</text>
+
+  <rect class="box" x="915" y="100" width="280" height="80" rx="3"/>
+  <text class="name" x="935" y="130">mariadb</text>
+  <text class="role" x="935" y="150">database</text>
+  <text class="mono meta" x="935" y="168">vol: mariadb · no port</text>
+
+  <rect class="box" x="1245" y="100" width="280" height="80" rx="3"/>
+  <text class="name" x="1265" y="130">adminer</text>
+  <text class="role" x="1265" y="150">db console</text>
+  <text class="mono meta" x="1265" y="168">:8080 · waits on healthy</text>
+
+  <!-- row 2 -->
+  <rect class="box" x="255" y="215" width="280" height="80" rx="3"/>
+  <text class="name" x="275" y="245">website</text>
+  <text class="role" x="275" y="265">static site</text>
+  <text class="mono meta" x="275" y="283">:81</text>
+
+  <rect class="box" x="585" y="215" width="280" height="80" rx="3"/>
+  <text class="name" x="605" y="245">redis</text>
+  <text class="role" x="605" y="265">object cache</text>
+  <text class="mono meta" x="605" y="283">:6379</text>
+
+  <rect class="box" x="915" y="215" width="280" height="80" rx="3"/>
+  <text class="name" x="935" y="245">ftp</text>
+  <text class="role" x="935" y="265">file access</text>
+  <text class="mono meta" x="935" y="283">:21 · vol: wordpress</text>
+
+  <rect class="box" x="1245" y="215" width="280" height="80" rx="3"/>
+  <text class="name" x="1265" y="245">portainer</text>
+  <text class="role" x="1265" y="265">container ui</text>
+  <text class="mono meta" x="1265" y="283">:9443 · docker.sock</text>
+
+  <!-- dependencies -->
+  <line class="link" x1="535" y1="140" x2="577" y2="140"/>
+  <line class="link" x1="865" y1="140" x2="907" y2="140"/>
+  <line class="link" x1="1245" y1="140" x2="1203" y2="140"/>
+  <line class="link" x1="725" y1="180" x2="725" y2="207"/>
+
+  <text class="mono meta" x="245" y="378">8 services · 1 user-defined network · 3 bind-mounted volumes · every image built from a base</text>
+</svg>

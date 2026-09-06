@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <>
       <BackgroundField />
-      <CursorLayer projects={projects} activeProject={hoveredProject} />
+      <CursorLayer projects={projects.filter(p => p.image)} activeProject={hoveredProject} />
 
       <div className={styles.content}>
         <SiteHeader />
